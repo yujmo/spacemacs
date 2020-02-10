@@ -1,0 +1,8 @@
+import os
+import urllib3
+
+http = urllib3.PoolManager()
+r = http.request('GET', 'https://www.freecnmove.com/2019/10/a3d3b20e/0041.ts')
+print(r.status)
+
+
