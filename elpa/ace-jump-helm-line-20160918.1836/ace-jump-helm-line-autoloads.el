@@ -1,10 +1,13 @@
 ;;; ace-jump-helm-line-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
 ;;;### (autoloads nil "ace-jump-helm-line" "ace-jump-helm-line.el"
-;;;;;;  (24109 42490 855465 429000))
+;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from ace-jump-helm-line.el
 
 (autoload 'ace-jump-helm-line "ace-jump-helm-line" "\
@@ -31,7 +34,8 @@ Jump to and select the candidate in helm window.
 
 (defvar ace-jump-helm-line-autoshow-mode nil "\
 Non-nil if Ace-Jump-Helm-Line-Autoshow mode is enabled.
-See the command `ace-jump-helm-line-autoshow-mode' for a description of this minor mode.
+See the `ace-jump-helm-line-autoshow-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `ace-jump-helm-line-autoshow-mode'.")
@@ -43,11 +47,14 @@ Automatically show line labels in `helm'.
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ace-jump-helm-line" '("turn-on-ace-jump-helm-line--linum" "ace-jump-helm-line-")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; ace-jump-helm-line-autoloads.el ends here

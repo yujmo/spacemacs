@@ -1,10 +1,12 @@
 ;;; bind-map-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "bind-map" "bind-map.el" (24109 42515 371074
-;;;;;;  355000))
+;;;### (autoloads nil "bind-map" "bind-map.el" (0 0 0 0))
 ;;; Generated autoloads from bind-map.el
 
 (autoload 'bind-map "bind-map" "\
@@ -94,7 +96,7 @@ and :evil-states. All others must be declared explicitly.
 
 \(fn MAP PARENT &rest ARGS)" nil t)
 
-(put 'bind-map-for-mode-inherit 'lisp-indent-function '2)
+(function-put 'bind-map-for-mode-inherit 'lisp-indent-function '2)
 
 (autoload 'bind-map-for-major-mode "bind-map" "\
 Short version of `bind-map' if you want to bind a map for a
@@ -141,11 +143,14 @@ series of KEY DEF pairs. Each KEY should be a string suitable for
 
 \(fn MAP KEY DEF &rest BINDINGS)" nil nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bind-map" '("bind-map-")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; bind-map-autoloads.el ends here

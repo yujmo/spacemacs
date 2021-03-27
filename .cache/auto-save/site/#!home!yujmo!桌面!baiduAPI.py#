@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import hashlib
+import hmac
+import urllib
+import time
+import requests
+import json
+
+AK = "5fc3cf58646d4ac7ae9019dfb74ddd2b"
+SK = "b2f1c3da61d349d5bcf07e956be0b12e"
+host = "bcc.bj.baidubce.com"
+method = "PUT"
+query = "modifyAttribute"
+URI = "/v2/instance/i-YufwpQAe"
+
+# 2.x-bce-date
+x_bce_date = time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
+print(x_bce_date)
+input()
+
+# 3.header和signedHeaders
+header = {
+        "Host":host,
+        "content-type":"application/json;charset=utf-8",
+        "x-bce-date":x_bce_date
+        }
+signedHeaders = "content-type;host;x-bce-date"
+
+# 4.认证字符串前缀
+authStringPrefix = "bce-auth-v1" + "/" + AK + "/" + x_bce_date + "/" +"1800"
+
+# 5.生成CanonicalRequest
+#5.1生成CanonicalURI
+CanonicalURI = urllib.parse.quote(URI)
+
+#5.2生成CanonicalQueryString
+CanonicalQueryString = query
+
+#5.3生成CanonicalHeaders
+result = []
+for key,value in header.items():
+    tempStr = str(urllib.parse.quote(key.lower(),safe="")) + ":" + str(urllib.parse.quote(value,safe=""))
+    result.append(tempStr)
+result.sort()
+CanonicalHeaders = "\n".join(result)
+
+#5.4拼接得到CanonicalRequest
+CanonicalRequest = method + "\n" + CanonicalURI + "\n" + CanonicalQueryString +"\n" + CanonicalHeaders
+
+# 6.生成signingKey
+signingKey = hmac.new(SK.encode('utf-8'),authStringPrefix.encode('utf-8'),hashlib.sha256)
+
+# 7.生成Signature
+Signature = hmac.new((signingKey.hexdigest()).encode('utf-8'),CanonicalRequest.encode('utf-8'),hashlib.sha256)
+
+# 8.生成Authorization并放到header里
+header['Authorization'] = authStringPrefix + "/" +signedHeaders + "/" +Signature.hexdigest()
+
+# 9.发送API请求并接受响应
+
+body = {
+      "name" : "QQQQQQ"
+}
+
+
+url = "http://" + host + URI + "?" + query 
+
+r = requests.put(url,headers = header,data=json.dumps(body))
+
+print(r.text)
+
+

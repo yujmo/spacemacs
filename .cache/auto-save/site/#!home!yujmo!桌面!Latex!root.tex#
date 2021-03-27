@@ -1,0 +1,138 @@
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{float}
+
+\title{\LARGE \bf
+Real-Time Semantic Segmentation
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Recently, more and more researches focus on real-time semantic segmentation. Real-time semantic segmentation is a challenging task as both accuracy and inference speed need to be considered simultaneously. However, under resource constraints, it is impossible to maintain accuracy and boost inference speed at the same time. Therefore, the goal of real-time semantic segmentation is to achieve the best possible trade-off between accuracy and inference speed.
+
+\section{Real-Time Semantic Segmentation}
+
+As demonstrated in state-of-the-art methods \cite{zhao2017pyramid,fu2019dual,li2019expectation} focused on accuracy, context information and spatial information are essential for semantic segmentation. Objects in semantic segmentation task have various scales and are easily affected by occlusion and illumination. Therefore, multi-scale context information is required to make a correct identification for these objects. Spatial information is required to restore the boundaries of objects and small objects lost during downsampling process. The mainstream real-time semantic segmentation methods mainly adopt an encoder-decoder architecture, which separates the architecture into an encoder to generate context information and a decoder to recover spatial information. In this section, we divide current real-time semantic segmentation methods into two types based on the backbone they adopted. There are also some methods that have a two-branch architecture, which are discussed at the end of this section.
+
+\subsection{Light-weight Classification Model Based}
+
+The first type adopts a light-weight classification model as backbone. There are great developments in light-weight classification network. It is naturally to adopt these models as feature extractor in computer vision tasks. On the other hand, pre-training on ImageNet can improve accuracy, especially when there is not enough data for a new task.
+
+Deep Feature Aggregation Network (DFANet) \cite{li2019dfanet} proposes sub-network aggregate and sub-stage aggregate to exploit feature maps combined from both network-level and stage-level. DFANet adopts a light-weight Xception \cite{chollet2017xception} model with little modification as backbone. In sub-network aggregate, DFANet stacks multiple encoder-decoder networks by adopting the output of the previous sub-network as the input of the next sub-network. Sub-network aggregation can be seen as a refinement process, which allows high-level features to be fully utilized. In sub-stage aggregate, DFANet combines the feature maps of different stages by adopting the output of a certain stage in the previous sub-network as the input of the corresponding stage in the next sub-network.
+
+SwiftNet \cite{orsic2019defense} offers some suggestions for designing a real-time semantic segmentation model. The backbone should be pre-trained on ImageNet to benefit from transfer learning. The decoder can be as simple as possible to boost inference speed. In order to support training from scratch, gradient flow need to be promoted throughout the network. Therefore, SwiftNet adopts ResNet-18 \cite{he2016deep} and MobileNet V2 \cite{sandler2018mobilenetv2} as backbone and a light-weight upsampling module with lateral connections as decoder.
+
+Different from single encoder-decoder structure for semantic segmentation, ShelfNet \cite{zhuang2019shelfnet} proposes a shelf-shaped structure which has multiple encoder-decoder branch pairs. In order to improve information flow in the network, ShelfNet introduces skip connections at the corresponding stage between encoder-decoder pairs. ShelfNet adopts ResNet as backbone. To further reduce parameters, ShelfNet proposes a shared-weight strategy in the residual block.
+
+Fast Attention Network (FANet) \cite{hu2020real} introduces a fast attention module to capture rich spatial contextual information. In fast attention module, FANet converts attention process to a series of matrix multiplication by replacing softmax function with cosine similarity function. FANet adopts ResNet as backbone and further applies additional downsampling process in intermediate features to make use of both rich context information and full-resolution spatial information under small computational cost.
+
+SFNet \cite{li2020semantic} is the first work to introduce the concept of semantic flow in semantic segmentation. Semantic flow represents the relationship between two feature maps of arbitrary resolutions from the same image. SFNet designs a Flow Alignment Module (FAM) which takes feature maps from adjacent levels as input and aligns these two feature maps according to semantic flow. SFNet adopts ResNet, ShuffleNet V2 \cite{ma2018shufflenet} and DF \cite{li2019partial} as backbone and builds a feature pyramid aligned network with multiple FAMs in decoder.
+
+\subsection{Specialized Backbone Based}
+
+
+Different with image recognition, semantic segmentation needs multi-scale context information to make a correct identification, which is not guaranteed in a normal classification network. Therefore, there are many researches focus on designing a specialized backbone for real-time semantic segmentation.
+
+ENet \cite{paszke2016enet} is designed from the ground up specifically for real-time semantic segmentation. An initial block and a bottleneck module modified from ResNet is adopted to construct a novel architecture as backbone. A relatively small decoder is proposed to upsample the output of encoder. To maintain a real-time speed, ENet performs on a resized input image and applies early downsampling to reduce computational cost.
+
+Efficient Residual Factorized Network (ERNet) \cite{romera2017erfnet} designs a novel factorized residual layer with residual connection and factorized convolution. Residual connection facilitates training process of network. Factorized convolution brings a significant reduce in model size and computational cost. Factorized residual layer is adopted as basic block for encoder and initial block proposed by ENet is used as downsampling block. Similar to ENet, ERFNet has a small decoder only used for recovering image size.
+
+ESPNet \cite{mehta2018espnet} proposes an efficient spatial pyramid (ESP) module as basic block to build a novel backbone. ESP module is a form of factorized convolution which consists a point-wise convolution and a spatial pyramid of dilated convolutions. ESP module has a large receptive field and a low computational cost. In addition, hierarchical feature fusion is proposed to address gridding artifact in ESP module. In decoder, ESPNet uses a strategy of reduce-upsample-merge to recover spatial information gradually.
+
+Context Guided Network (CGNet) \cite{wu2018cgnet} proposes a context guided (CG) block to utilize surrounding context information and global context information. In CG block, local feature and surrounding context information are obtained by a standard convolutional layer and a dilated convolutional layer. Local feature and surrounding context information are first combined and then refined by global context information. Based on CG block, CGNet captures contextual information in all stages.
+
+EDANet \cite{lo2019efficient} applies asymmetric convolution with dilated convolution and dense connectivity to build a novel basic block EDA module. As a variant of DenseNet \cite{huang2017densely}, EDANet is able to gather features extracted from different layers and aggregate multi-scale context information.
+
+LEDNet \cite{wang2019lednet} adopts an asymmetric encoder-decoder architecture to accelerate inference process. In encoder, a novel basic block consists of skip connection and convolution with channel split and shuffle. Channel split and 1D factorized convolution are used to reduce computational cost. Channel shuffle is used to enhance information exchange between feature maps. Finally, an attention pyramid network (APN) is adopted in decoder to produce sematic prediction.
+
+DABNet \cite{li2019dabnet} proposes a novel depth-wise asymmetric bottleneck (DAB) module which combines depth-wise convolution and asymmetric convolution with dilated convolution. Due to DAB module, DABNet is able to efficiently utilize context information and maintain fast inference speed at the same time.
+
+Feature Pyramid Encoding Network (FPENet) \cite{liu2019feature} is a novel U-shape encoder-decoder architecture for real-time semantic segmentation. In encoder, a feature pyramid encoding (FPE) block is introduced to encode multi-scale features, which combines a pyramid of depth-wise convolution with different dilation rates. In decoder, a mutual embedding upsample module (MEU) is designed to aggregate feature maps from high-level and low-level. In details, MEU generates spatial attention map from low-level features to guide high-level features and channel attention map from high-level features to guide low-level features.
+
+LRNNet \cite{jiang2020lrnnet} introduces a light-weighted factorized convolution block (FCB) and an efficient reduced non-local (SVN) module. In FCB, 1D factorized convolution and depth-wise separable convolution with a large dilation rate are used to deal with short-range features and long-range features, respectively. In SVN module, regional singular vector is used to model long-range dependencies and maintain low computational computation and memory cost.
+
+Dense Dual-Path Network (DDPNet) \cite{yang2020dense} designs a novel light-weight backbone with dense connectivity and dual-path module (DPM) to aggregate multi-scale context information. A skip architecture with the proposed upsampling module is adopted as decoder, which leverages context information to refine semantic outputs.
+
+\subsection{Two-branch Architecture Based}
+
+In addition to the above methods adopting an encoder to generate context information and a decoder to recover spatial information, some other methods design a two-branch architecture to aggregate context information and spatial information.
+
+Image Cascade Network (ICNet) \cite{zhao2018icnet} develops a novel architecture for real-time semantic segmentation, which obtains context information from a low-resolution input and spatial information from a high-resolution input. In addition, a cascade feature fusion (CFF) unit is proposed to combine cascade features from different resolution inputs and cascade label guidance (CLG) is proposed to enhance the learning procedure in each branch.
+
+Bilateral Segmentation Network (BiSeNet) \cite{yu2018bisenet} is another classic work that attempts to utilize high-resolution image and low-resolution image to achieve comparable performance. In details, a context path with a light-weight model is designed to obtain context information and a spatial path with only three convolution layers is adopted to preserve spatial information at the same time. In order to further improve accuracy, a feature fusion module (FFM) is introduced to combine feature representation from two paths and an attention refinement module (ARM) is proposed to refine the features in context path. With similar design principle, Guided Upsampling Network (GUN) \cite{mazzini2018guided} and ContextNet \cite{poudel2018contextnet} also design a two-branch architecture for real-time semantic segmentation.
+
+Fast Semantic Segmentation Network (FSCNN) \cite{poudel2019fast} merges two-branch architecture with encoder-decoder architecture, which shares low-level features for two branches. By adopting skip connection and a learning to downsample module, FSCNN constructs a network similar to two-branch architecture but without actual spatial branch. Finally, a feature fusion module is employed to combine features from different levels.
+
+\setlength{\tabcolsep}{5.0pt}
+\begin{table*}[t]
+\begin{center}
+\caption{
+Accuracy and efficiency results on Cityscapes test dataset. 
+``-'' indicates that the corresponding result is not provided. 
+}
+\label{table:table1}
+\begin{tabular}{lccccccccc}
+\hline\noalign{\smallskip}
+Method                            & Publish   & Backbone  & Pretrain & Input Size       & Params & FLOPs & GPU & FPS  & mIoU(\%) \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+DFANet\cite{li2019dfanet}         & CVPR2019  & Xception  & ImageNet & $1024\times1024$ & 7.8M  & 3.4G  & TitanX & 100  & 71.3 \\
+SwiftNet\cite{orsic2019defense}   & CVPR2019  & ResNet-18 & ImageNet & $1024\times2048$ & 11.8M & 104G  & 1080Ti & 39.9 & 75.5 \\
+ShelfNet\cite{zhuang2019shelfnet} & ICCVW2019 & ResNet-18 & ImageNet & $1024\times2048$ & -     & -     & 1080Ti & 36.9 & 74.8 \\
+FANet\cite{hu2020real}            & ECCVW2020 & ResNet-18 & ImageNet & $1024\times2048$ & -     & 49.0G & TitanX & 72.0 & 74.4 \\
+SFNet\cite{li2020semantic}        & ECCV2020  & DF1       & ImageNet & $1024\times2048$ & 9.0M  & -     & 1080Ti & 74.0 & 74.5 \\
+SFNet\cite{li2020semantic}        & ECCV2020  & DF2       & ImageNet & $1024\times2048$ & 10.5M & -     & 1080Ti & 53.0 & 77.8 \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+ENet\cite{paszke2016enet}     & arXiv2016  & - & No & $360\times640$   & 0.4M & 3.8G  & TitanX   & 135  & 58.3 \\
+ERFNet\cite{romera2017erfnet} & TITS2018   & - & No & $512\times1024$  & 2.1M & -     & TitanX M & 41.7 & 68.0 \\
+ESPNet\cite{mehta2018espnet}  & ECCV2018   & - & No & $512\times1024$  & 0.4M & -     & TitanX   & 112  & 60.3 \\
+EDANet\cite{lo2019efficient}  & MMAsia2019 & - & No & $512\times1024$  & 0.7M & -     & 1080Ti   & 109  & 67.3 \\
+LEDNet\cite{wang2019lednet}   & ICIP2019   & - & No & $512\times1024$  & 0.9M & 11.5G & 1080Ti   & 71.0 & 69.2 \\
+DABNet\cite{li2019dabnet}     & BMVC2019   & - & No & $1024\times2048$ & 0.8M & -     & 1080Ti   & 27.7 & 70.1 \\
+FPENet\cite{liu2019feature}   & BMVC2019   & - & No & $768\times1536$  & 0.4M & 12.8G & TitanV   & 55.0 & 70.1 \\
+LRNNet\cite{jiang2020lrnnet}  & ICMEW2020  & - & No & $512\times1024$  & 0.7M & 8.6G  & 1080Ti   & 71.0 & 72.2 \\
+DDPNet\cite{yang2020dense}    & ACCV2020   & - & No & $768\times1536$  & 2.5M & 13.2G & 1080Ti   & 85.4 & 74.0 \\
+DDPNet\cite{yang2020dense}    & ACCV2020   & - & No & $1024\times2048$ & 2.5M & 23.5G & 1080Ti   & 52.6 & 75.3 \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+ContextNet\cite{poudel2018contextnet} & BMVC2018 & -           & No       & $1024\times2048$ & 0.9M  & -     & TitanX M & 41.9 & 66.1 \\
+GUN\cite{mazzini2018guided}           & BMVC2018 & DRN-D-22    & ImageNet & $512\times1024$  & -     & -     & TitanX   & 33.3 & 70.4 \\
+FastSCNN\cite{poudel2019fast}         & BMVC2019 & -           & No       & $1024\times2048$ & 1.1M  & -     & TitanX   & 123  & 68.0 \\
+ICNet\cite{zhao2018icnet}             & ECCV2018 & PSPNet-50   & ImageNet & $1024\times2048$ & 26.5M & 28.3G & TitanX M & 30.3 & 69.5 \\
+BiSeNet\cite{yu2018bisenet}           & ECCV2018 & Xception-39 & ImageNet & $768\times1536$  & 5.8M  & 14.8G & TitanX   & 106  & 68.4 \\
+BiSeNet\cite{yu2018bisenet}           & ECCV2018 & ResNet-18   & ImageNet & $768\times1536$  & 12.9M & 55.3G & TitanX   & 65.5 & 74.7 \\
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{center}
+\end{table*}
+
+\bibliographystyle{IEEEtrans}
+\bibliography{IEEEabrv,ref}
+
+\end{document}

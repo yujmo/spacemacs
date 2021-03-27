@@ -1,10 +1,13 @@
 ;;; vi-tilde-fringe-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "vi-tilde-fringe" "vi-tilde-fringe.el" (24109
-;;;;;;  43398 811083 327000))
+;;;### (autoloads nil "vi-tilde-fringe" "vi-tilde-fringe.el" (0 0
+;;;;;;  0 0))
 ;;; Generated autoloads from vi-tilde-fringe.el
 
 (autoload 'vi-tilde-fringe-mode "vi-tilde-fringe" "\
@@ -14,8 +17,9 @@ empty.
 \(fn &optional ARG)" t nil)
 
 (defvar global-vi-tilde-fringe-mode nil "\
-Non-nil if Global-Vi-Tilde-Fringe mode is enabled.
-See the command `global-vi-tilde-fringe-mode' for a description of this minor mode.
+Non-nil if Global Vi-Tilde-Fringe mode is enabled.
+See the `global-vi-tilde-fringe-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `global-vi-tilde-fringe-mode'.")
@@ -24,7 +28,7 @@ or call the function `global-vi-tilde-fringe-mode'.")
 
 (autoload 'global-vi-tilde-fringe-mode "vi-tilde-fringe" "\
 Toggle Vi-Tilde-Fringe mode in all buffers.
-With prefix ARG, enable Global-Vi-Tilde-Fringe mode if ARG is positive;
+With prefix ARG, enable Global Vi-Tilde-Fringe mode if ARG is positive;
 otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
@@ -34,11 +38,14 @@ See `vi-tilde-fringe-mode' for more information on Vi-Tilde-Fringe mode.
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "vi-tilde-fringe" '("vi-tilde-fringe-")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; vi-tilde-fringe-autoloads.el ends here

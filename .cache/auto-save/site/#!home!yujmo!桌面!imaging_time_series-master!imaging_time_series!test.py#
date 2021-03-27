@@ -1,0 +1,12 @@
+from moviepy.editor import VideoClip
+
+a = [1,2,3,4]
+a.append()
+def test():
+    a.append(3)
+    print('nihao')
+
+print('a')
+print('xx')
+print('xx')
+

@@ -1,1 +1,1 @@
-((evil-unimpaired :fetcher file :path "/root/.emacs.d/layers/+spacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el"))
+((evil-unimpaired :fetcher file :path "/home/yujmo/.emacs.d/layers/+spacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el"))

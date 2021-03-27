@@ -1,15 +1,18 @@
 ;;; helm-flx-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "helm-flx" "helm-flx.el" (24109 43314 864425
-;;;;;;  835000))
+;;;### (autoloads nil "helm-flx" "helm-flx.el" (0 0 0 0))
 ;;; Generated autoloads from helm-flx.el
 
 (defvar helm-flx-mode nil "\
 Non-nil if Helm-Flx mode is enabled.
-See the command `helm-flx-mode' for a description of this minor mode.
+See the `helm-flx-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `helm-flx-mode'.")
@@ -21,11 +24,14 @@ helm-flx minor mode
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "helm-flx" '("helm-flx-")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; helm-flx-autoloads.el ends here

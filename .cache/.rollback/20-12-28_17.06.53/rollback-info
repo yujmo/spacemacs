@@ -1,0 +1,2 @@
+
+(setq update-packages-alist '((pyvenv . "pyvenv-20201210.1509") (org-mime . "org-mime-20201105.2322") (gnuplot . "gnuplot-20201221.1035") (auctex . "auctex-12.3.1") (flycheck . "flycheck-20201218.1756") (helm . "helm-20201217.828") (avy . "avy-20200624.1148") (projectile . "projectile-20201220.1813") (org-plus-contrib . "org-plus-contrib-20201221") (magit . "magit-20201218.1819") (git-commit . "git-commit-20201115.2313") (dash . "dash-20201218.1237")))

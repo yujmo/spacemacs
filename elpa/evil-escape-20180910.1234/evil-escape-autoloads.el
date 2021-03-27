@@ -1,15 +1,18 @@
 ;;; evil-escape-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "evil-escape" "evil-escape.el" (24109 43182
-;;;;;;  522545 31000))
+;;;### (autoloads nil "evil-escape" "evil-escape.el" (0 0 0 0))
 ;;; Generated autoloads from evil-escape.el
 
 (defvar evil-escape-mode nil "\
 Non-nil if Evil-Escape mode is enabled.
-See the command `evil-escape-mode' for a description of this minor mode.
+See the `evil-escape-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `evil-escape-mode'.")
@@ -22,11 +25,14 @@ with a key sequence.
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-escape" '("evil-escape")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; evil-escape-autoloads.el ends here

@@ -1,0 +1,2 @@
+
+(setq update-packages-alist '((pyvenv . "pyvenv-20191202.1039") (helm-c-yasnippet . "helm-c-yasnippet-20200520.1519") (ein . "ein-20201028.1857") (auto-complete . "auto-complete-20201011.1341") (websocket . "websocket-20200419.2124") (flycheck . "flycheck-20201105.423") (company . "company-20201028.136") (dash-functional . "dash-functional-20200617.702") (markdown-mode . "markdown-mode-20201015.1327")))

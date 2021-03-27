@@ -1,10 +1,12 @@
 ;;; evil-tutor-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "evil-tutor" "evil-tutor.el" (24109 43245 269540
-;;;;;;  250000))
+;;;### (autoloads nil "evil-tutor" "evil-tutor.el" (0 0 0 0))
 ;;; Generated autoloads from evil-tutor.el
 
 (autoload 'evil-tutor-start "evil-tutor" "\
@@ -14,10 +16,11 @@ Start a evil-tutor session.
 
 (defalias 'evil-tutor-resume 'evil-tutor-start)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-tutor" '("evil-tutor-")))
+
 ;;;***
 
-;;;### (autoloads nil nil ("evil-tutor-pkg.el") (24109 43245 312442
-;;;;;;  913000))
+;;;### (autoloads nil nil ("evil-tutor-pkg.el") (0 0 0 0))
 
 ;;;***
 
@@ -25,5 +28,6 @@ Start a evil-tutor session.
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; evil-tutor-autoloads.el ends here

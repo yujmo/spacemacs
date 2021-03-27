@@ -32,3 +32,4 @@
   (spacemacs/setup-startup-hook)
   (require 'server)
   (unless (server-running-p) (server-start)))
+(put 'set-goal-column 'disabled nil)

@@ -1,0 +1,6 @@
+chmod +x test.sh
+chmod 777 test.sh
+cd 
+cd 桌面/shell脚本/ 
+ls
+clear

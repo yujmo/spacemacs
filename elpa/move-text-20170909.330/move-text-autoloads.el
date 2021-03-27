@@ -1,10 +1,12 @@
 ;;; move-text-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "move-text" "move-text.el" (24109 43319 4360
-;;;;;;  64000))
+;;;### (autoloads nil "move-text" "move-text.el" (0 0 0 0))
 ;;; Generated autoloads from move-text.el
 
 (autoload 'move-text--total-lines "move-text" "\
@@ -72,11 +74,14 @@ Use default bindings for move-text-up and move-text-down (M-up / M-down).
 
 \(fn)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "move-text" '("move-text-get-region-and-prefix")))
+
 ;;;***
 
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; move-text-autoloads.el ends here

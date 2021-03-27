@@ -1,0 +1,2 @@
+
+(setq update-packages-alist '((org-plus-contrib . "org-plus-contrib-20201228")))

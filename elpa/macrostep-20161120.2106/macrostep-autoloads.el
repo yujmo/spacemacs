@@ -1,10 +1,12 @@
 ;;; macrostep-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "macrostep" "macrostep.el" (24109 43318 636365
-;;;;;;  912000))
+;;;### (autoloads nil "macrostep" "macrostep.el" (0 0 0 0))
 ;;; Generated autoloads from macrostep.el
 
 (autoload 'macrostep-mode "macrostep" "\
@@ -34,10 +36,11 @@ behaviors.
 
 \(fn &optional TOGGLE-SEPARATE-BUFFER)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "macrostep" '("macrostep-")))
+
 ;;;***
 
-;;;### (autoloads nil "macrostep-c" "macrostep-c.el" (24109 43318
-;;;;;;  640365 849000))
+;;;### (autoloads nil "macrostep-c" "macrostep-c.el" (0 0 0 0))
 ;;; Generated autoloads from macrostep-c.el
 
 (autoload 'macrostep-c-mode-hook "macrostep-c" "\
@@ -47,10 +50,11 @@ behaviors.
 
 (add-hook 'c-mode-hook #'macrostep-c-mode-hook)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "macrostep-c" '("macrostep-c-")))
+
 ;;;***
 
-;;;### (autoloads nil nil ("macrostep-pkg.el") (24109 43318 650429
-;;;;;;  476000))
+;;;### (autoloads nil nil ("macrostep-pkg.el") (0 0 0 0))
 
 ;;;***
 
@@ -58,5 +62,6 @@ behaviors.
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; macrostep-autoloads.el ends here
